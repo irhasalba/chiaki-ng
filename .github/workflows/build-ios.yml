@@ -16,7 +16,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip3 install --user 'protobuf>=5,<6' --break-system-packages
+          python3 -m pip install --upgrade 'protobuf>=5.29,<6' --break-system-packages
           brew install ninja protobuf@29
           echo "PROTOC=$(brew --prefix protobuf@29)/bin/protoc" >> $GITHUB_ENV
 
