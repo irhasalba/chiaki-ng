@@ -17,11 +17,22 @@ jobs:
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade 'protobuf>=5.29,<6' --break-system-packages
-          brew install ninja protobuf@29
+          brew install ninja protobuf@29 xcodegen
           echo "PROTOC=$(brew --prefix protobuf@29)/bin/protoc" >> $GITHUB_ENV
 
       - name: Build chiaki-lib
         run: scripts/build-ios.sh
+
+      - name: Build iOS app
+        run: scripts/build-ios-app.sh
+
+      - name: Upload ipa
+        uses: actions/upload-artifact@v4
+        with:
+          name: ChiakiApp-ios
+          path: ios/ChiakiApp.ipa
+          if-no-files-found: error
+          retention-days: 7
 
       - name: Upload xcframework
         uses: actions/upload-artifact@v4

@@ -16,11 +16,14 @@ workflows:
       - name: Install dependencies
         script: |
           python3 -m pip install --upgrade 'protobuf>=5.29,<6' --break-system-packages
-          brew install ninja cmake protobuf@29
+          brew install ninja cmake protobuf@29 xcodegen
           echo "PROTOC=$(brew --prefix protobuf@29)/bin/protoc" >> $CM_ENV
       - name: Build chiaki-lib
         script: scripts/build-ios.sh
       - name: Package xcframework
         script: cd build-ios && zip -qry ChiakiLib.xcframework.zip ChiakiLib.xcframework
+      - name: Build iOS app
+        script: scripts/build-ios-app.sh
     artifacts:
       - build-ios/ChiakiLib.xcframework.zip
+      - ios/ChiakiApp.ipa

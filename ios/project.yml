@@ -1,0 +1,38 @@
+name: ChiakiApp
+options:
+  bundleIdPrefix: io.github.irhasalba
+  deploymentTarget:
+    iOS: "15.0"
+targets:
+  ChiakiApp:
+    type: application
+    platform: iOS
+    sources: [ChiakiApp]
+    info:
+      path: ChiakiApp/Info.plist
+      properties:
+        CFBundleDisplayName: Chiaki
+        CFBundleShortVersionString: "0.1"
+        CFBundleVersion: "1"
+        UILaunchScreen: {}
+        UIRequiresFullScreen: true
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+          - UIInterfaceOrientationPortrait
+        NSLocalNetworkUsageDescription: Chiaki connects to your PlayStation on the local network for Remote Play.
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.irhasalba.chiaki
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SWIFT_OBJC_BRIDGING_HEADER: ChiakiApp/ChiakiApp-Bridging-Header.h
+        HEADER_SEARCH_PATHS: $(PROJECT_DIR)/../build-ios/ios-out/include
+        CODE_SIGNING_ALLOWED: "NO"
+    dependencies:
+      - framework: ../build-ios/ChiakiLib.xcframework
+        embed: false
+      - sdk: libz.tbd
+      - sdk: Security.framework
+      - sdk: SystemConfiguration.framework
+      - sdk: CoreFoundation.framework
