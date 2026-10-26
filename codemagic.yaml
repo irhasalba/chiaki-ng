@@ -16,7 +16,8 @@ workflows:
       - name: Install dependencies
         script: |
           pip3 install --user 'protobuf>=5,<6' --break-system-packages
-          brew install ninja cmake
+          brew install ninja cmake protobuf@29
+          echo "PROTOC=$(brew --prefix protobuf@29)/bin/protoc" >> $CM_ENV
       - name: Build chiaki-lib
         script: scripts/build-ios.sh
       - name: Package xcframework

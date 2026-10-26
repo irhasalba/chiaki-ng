@@ -17,7 +17,8 @@ jobs:
       - name: Install dependencies
         run: |
           pip3 install --user 'protobuf>=5,<6' --break-system-packages
-          brew install ninja
+          brew install ninja protobuf@29
+          echo "PROTOC=$(brew --prefix protobuf@29)/bin/protoc" >> $GITHUB_ENV
 
       - name: Build chiaki-lib
         run: scripts/build-ios.sh
