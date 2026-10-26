@@ -1,0 +1,25 @@
+workflows:
+  chiaki-lib-ios:
+    name: Build chiaki-lib iOS
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    environment:
+      xcode: latest
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: ios-lib-build
+    scripts:
+      - name: Fetch submodules
+        script: git submodule update --init --recursive
+      - name: Install dependencies
+        script: |
+          pip3 install --user 'protobuf>=5,<6' --break-system-packages
+          brew install ninja cmake
+      - name: Build chiaki-lib
+        script: scripts/build-ios.sh
+      - name: Package xcframework
+        script: cd build-ios && zip -qry ChiakiLib.xcframework.zip ChiakiLib.xcframework
+    artifacts:
+      - build-ios/ChiakiLib.xcframework.zip
