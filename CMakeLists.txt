@@ -55,7 +55,7 @@ include(CPack)
 
 set(CHIAKI_IS_SWITCH ${NSWITCH})
 
-if(APPLE)
+if(APPLE AND NOT IOS)
 	if(CMAKE_HOST_SYSTEM_PROCESSOR STREQUAL "arm64")
 		set(CMAKE_OSX_DEPLOYMENT_TARGET 13.0 CACHE STRING "Minimum OS X deployment version" FORCE)
 	else()

@@ -1,0 +1,31 @@
+name: Build chiaki-lib iOS
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ios-lib-build]
+
+jobs:
+  build-ios:
+    name: Build chiaki-lib iOS arm64
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          pip3 install --user 'protobuf>=5,<6' --break-system-packages
+          brew install ninja
+
+      - name: Build chiaki-lib
+        run: scripts/build-ios.sh
+
+      - name: Upload xcframework
+        uses: actions/upload-artifact@v4
+        with:
+          name: ChiakiLib-ios-arm64
+          path: build-ios/ChiakiLib.xcframework
+          if-no-files-found: error
+          retention-days: 7

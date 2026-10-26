@@ -171,7 +171,7 @@ else()
 	target_link_libraries(chiaki-lib PkgConfig::MINIUPNPC)
 endif()
 
-if(NOT CHIAKI_IS_SWITCH AND NOT CHIAKI_ENABLE_ANDROID)
+if(NOT CHIAKI_IS_SWITCH AND NOT CHIAKI_ENABLE_ANDROID AND NOT IOS)
 	find_program(PKG_CONFIG_EXECUTABLE pkg-config)
 	if(PKG_CONFIG_EXECUTABLE)
 		pkg_search_module(LIBEVENT libevent QUIET IMPORTED_TARGET)
